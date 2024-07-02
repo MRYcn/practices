@@ -1,12 +1,11 @@
-#-*-coding:utf8;-*-
-#qpy:console
+#coding=utf-8
+#author=MRY
+#releasedtime=
 
 from random import randint
 
 def main():
-    sq=[]
-    for i in range(9):
-        sq.append(None)
+    sq=[None for i in range(9)]
     input('回车以开始：')
     user=bool(randint(0,1))
     if user:
@@ -87,7 +86,7 @@ def mind(sq):
     return
 
 def helpset():
-    return
+	print('九宫格棋。与人机下棋，您为○，人机为╳，优先连成一条线的获胜。九宫格中数字从左到右、从上到下依次递增，从1–9。')
     
 def iswin(sq):
     '''判断局势'''
@@ -138,7 +137,7 @@ if __name__=='__main__':
     while True:
         if ans=='y' or ans=='Y':
             main()
-        ans=input('是否再来？y/n;显示帮助信息:h')
+        ans=input('是否再来？(y/n);显示帮助信息(h):')
         if ans=='y' or ans=='Y':
             continue
         elif ans=='n' or ans=='N':
@@ -149,4 +148,3 @@ if __name__=='__main__':
         else:
             print('输入不规范,',end='')
         
-#input()
