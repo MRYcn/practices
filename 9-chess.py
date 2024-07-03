@@ -24,7 +24,7 @@ def main():
         sq[user_append-1]=0
     else:
         print('Bot先行')
-        #sq=mind(sq)
+        sq=mind(sq)
         user=True
         out(sq)
     while True:
@@ -48,12 +48,13 @@ def main():
             user=False
         if not user:
             
-            #sq=mind(sq)
+            sq=mind(sq)
             
             result=iswin(sq)
             if result==1 or result==2 or result==0:
                 break
             user=True
+            out(sq)
     if result==1:
         out(sq)
         print('你输了！')
@@ -83,14 +84,41 @@ def out(sq):
     return
 
 def mind(sq):
-    return
+	user_position=[]
+	bot_position=[]
+	for sindex in range(0,9):
+		if sq[sindex]==0:
+			user_position.append(sindex)
+		if sq[sindex]==1:
+			bot_position.append(sindex)
+	level_list={}
+	for None_position in range(9):
+		if sq[None_position]==None:
+			level_position=None_position
+			level=level_judge(user_position, bot_position, None_position)
+			level_list.update({level_position:level})
+	level_list_kv=level_list.items()
+	max_level=0
+	max_level_position=[]
+	for key,value in level_list_kv:
+		if value>int(str(max_level)[-1]):
+			max_level=value
+	for key,value in level_list_kv:
+		if value==max_level:
+			max_level_position.append(key)
+	if len(max_level_position)==1:
+		sq[max_level_position[0]]=1
+	else:
+		random_position=randint(0,len(max_level_position)-1)
+		sq[random_position]=1
+	return sq
 
 def helpset():
 	print('九宫格棋。与人机下棋，您为○，人机为╳，优先连成一条线的获胜。九宫格中数字从左到右、从上到下依次递增，从1–9。')
     
 def iswin(sq):
     '''判断局势'''
-    print('sq:',sq)
+    #print('sq:',sq)
     rs=False
     ran=0
     for st in [0,3,6]:
@@ -128,11 +156,43 @@ def iswin(sq):
         #print('判断平')
         return 2
 
-
 def level_judge(user_position,bot_position,target_position):
-    return
-    
+	rs=['012','345','678','246','036','147','258','048']
+	exist_line_list=[]
+	for line in rs:
+		if str(target_position) in line:
+			exist_line_list.append(line)
+	x_n=0
+	for exist_line in exist_line_list:
+		if str(bot_position) in exist_line:
+			x_n+=1
+	if x_n==2:
+		return 7
+	first_judge=[]
+	for exist_line in exist_line_list:
+		first_judge.append(0)
+		for exist_position in exist_line:#
+			if exist_position in user_position:
+				first_judge[-1]+=1
+	second_judge=0
+	level_1n=0
+	level_2n=0
+	for level in first_judge:
+		if level==2:
+			level_2n+=1
+	if level_2n==2:
+		second_judge=6
+	elif level_2n==1:
+		second_judge=5
+	else:
+		for level in first_judge:
+			if level==1:
+				level_1n+=1
+		second_judge=level_1n
+	return second_judge
+
 if __name__=='__main__':
+    helpset()
     ans='y'
     while True:
         if ans=='y' or ans=='Y':
