@@ -2,7 +2,7 @@
 #author=MRY
 #releasedtime=
 
-from random import randint
+from random import randint,choice
 
 def main():
     sq=[None for i in range(9)]
@@ -101,7 +101,7 @@ def mind(sq):
 	max_level=0
 	max_level_position=[]
 	for key,value in level_list_kv:
-		if value>int(str(max_level)[-1]):
+		if value>max_level:
 			max_level=value
 	for key,value in level_list_kv:
 		if value==max_level:
@@ -109,8 +109,8 @@ def mind(sq):
 	if len(max_level_position)==1:
 		sq[max_level_position[0]]=1
 	else:
-		random_position=randint(0,len(max_level_position)-1)
-		sq[random_position]=1
+		#random_position=randint(0,len(max_level_position)-1)
+		sq[choice(max_level_position)]=1
 	return sq
 
 def helpset():
