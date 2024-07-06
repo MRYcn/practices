@@ -1,6 +1,6 @@
 #coding=utf-8
 #author=MRY
-#releasedtime=
+#releasedtime=2024.7.6
 
 from random import randint,choice
 
@@ -82,7 +82,7 @@ def out(sq):
             print('__',end='')
         it+=1
     return
-
+'''原版
 def mind(sq):
 	user_position=[]
 	bot_position=[]
@@ -112,12 +112,47 @@ def mind(sq):
 		#random_position=randint(0,len(max_level_position)-1)
 		sq[choice(max_level_position)]=1
 	return sq
+'''
+#AI版
+def mind(sq):
+    # 检查机器人是否有获胜的机会
+    for i in range(9):
+        if sq[i] is None:
+            sq[i] = 1  # 尝试在空位置下棋
+            if iswin(sq) == 1:
+                return sq  # 如果能赢，就在这里下棋
+            sq[i] = None  # 恢复棋盘
+
+    # 检查是否需要阻止用户获胜
+    for i in range(9):
+        if sq[i] is None:
+            sq[i] = 0  # 假设用户在这里下棋
+            if iswin(sq) == 0:
+                sq[i] = 1  # 如果用户能赢，机器人就在这里下棋阻止
+                return sq
+            sq[i] = None  # 恢复棋盘
+
+    # 如果没有立即的获胜或防守需求，使用原来的策略
+    level_list = {}
+    for None_position in range(9):
+        if sq[None_position] is None:
+            level = level_judge([i for i, x in enumerate(sq) if x == 0], 
+                                [i for i, x in enumerate(sq) if x == 1], 
+                                None_position)
+            level_list[None_position] = level
+
+    max_level = max(level_list.values())
+    max_level_positions = [pos for pos, level in level_list.items() if level == max_level]
+    
+    sq[choice(max_level_positions)] = 1
+    return sq
 
 def helpset():
 	print('九宫格棋。与人机下棋，您为○，人机为╳，优先连成一条线的获胜。九宫格中数字从左到右、从上到下依次递增，从1–9。')
-    
+
+'''原版
 def iswin(sq):
-    '''判断局势'''
+    
     #print('sq:',sq)
     rs=False
     ran=0
@@ -155,7 +190,28 @@ def iswin(sq):
     else:
         #print('判断平')
         return 2
+'''
+#AI版
+def iswin(sq):
+    for i in range(3):
+        # 检查横向
+        if sq[i*3] == sq[i*3+1] == sq[i*3+2] is not None:
+            return 0 if sq[i*3] == 0 else 1
+        # 检查纵向
+        if sq[i] == sq[i+3] == sq[i+6] is not None:
+            return 0 if sq[i] == 0 else 1
+    
+    # 检查对角线
+    if sq[0] == sq[4] == sq[8] is not None:
+        return 0 if sq[0] == 0 else 1
+    if sq[2] == sq[4] == sq[6] is not None:
+        return 0 if sq[2] == 0 else 1
+    
+    # 如果棋盘已满，返回平局
+    if None not in sq:
+        return 2
 
+'''原版
 def level_judge(user_position,bot_position,target_position):
 	rs=['012','345','678','246','036','147','258','048']
 	exist_line_list=[]
@@ -190,6 +246,33 @@ def level_judge(user_position,bot_position,target_position):
 				level_1n+=1
 		second_judge=level_1n
 	return second_judge
+'''
+
+#AI版
+def level_judge(user_position, bot_position, target_position):
+    rs = ['012', '345', '678', '036', '147', '258', '048', '246']
+    exist_line_list = [line for line in rs if str(target_position) in line]
+    
+    # 检查是否有两个机器人棋子在一行
+#    for line in exist_line_list:
+#        bot_count = sum(1 for pos in line if int(pos) in bot_position)
+#        if bot_count == 2:
+#            return 7   highest priority
+    
+    # 检查是否有两个用户棋子在一行
+    user_threat = 0
+    for line in exist_line_list:
+        user_count = sum(1 for pos in line if int(pos) in user_position)
+        if user_count == 2:
+            user_threat += 1
+    
+    if user_threat >= 2:
+        return 6  # high priority to block multiple threats
+    elif user_threat == 1:
+        return 5  # priority to block single threat
+    
+    # 如果没有直接威胁，返回可以形成的潜在线数
+    return len(exist_line_list)
 
 if __name__=='__main__':
     helpset()
