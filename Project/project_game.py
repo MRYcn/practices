@@ -1,5 +1,5 @@
 #coding=utf-8
-#author=QQ:
+#author=QQ群824091869
 #releasedtime=
 
 import pygame
