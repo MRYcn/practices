@@ -18,3 +18,4 @@ class Settings:
 		self.speed=self.speeds[level-1]
 		self.lives_limit=self.lives_limits[level-1]
 		self.sing_score=self.sing_scores[level-1]
+		self.wait=self.waits[level-1]
