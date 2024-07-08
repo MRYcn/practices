@@ -15,7 +15,8 @@ class Block(Sprite):
 		self.screen=B_game.screen
 		self.settings=B_game.settings
 		self.stats=B_game.stats
-		if not status:
+		self.status=B_game.status
+		if not self.status:
 			self.x=self.y=50
 			self.color=(230,30,0)
 			if chcolor:
