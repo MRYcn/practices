@@ -11,7 +11,8 @@ except:
 
 class High_level(Sprite):
 	def __init__(self,B_game,level):
-		self.settings.B_game.settings
+		super().__init__()
+		self.settings=B_game.settings
 		self.screen=B_game.screen
 		self.stats=B_game.stats
 		if level>=1:
