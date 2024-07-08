@@ -12,15 +12,15 @@ class Thread:
 	def __init__(self,B_game):
 		self.screen=B_game.screen
 		self.boot=True
-		self.start=590
-		self.end=610
+		self.start=(590,550)
+		self.end=(610,550)
 		self.width=20
 		self.length_r=20
 		self.color=(30,30,30)
 	
 	def blitme(self):
 		if self.boot:
-			_bootan()
+			self._bootan()
 		else:
 			pygame.draw.line(self.screen,self.color,self.start,self.end,self.width)
 	def _bootan(self):
@@ -31,8 +31,9 @@ class Thread:
 			d=d2-d1
 			dm=d.microseconds/1000
 			if dm>=20:
-				self.start-=self.length_r
-				self.end+=self.length_r
+				print(self.start)
+				self.start=(self.start[0]-self.length_r,self.start[1])
+				self.end=(self.end[0]+self.length_r,self.end[1])
 				pygame.draw.line(self.screen,self.color,self.start,self.end,self.width)
 				d1=d2
 			if self.start<=60:
