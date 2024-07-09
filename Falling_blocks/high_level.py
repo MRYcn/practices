@@ -1,6 +1,6 @@
 #coding=utf-8
 #author=MRY
-#releasedtime=
+#releasedtime=2024.7.9
 
 #assist for: block_game.py
 try:
@@ -18,7 +18,7 @@ class High_level(Sprite):
 		if level>=1:
 			self.font=pygame.font.SysFont(None,40)
 		else:
-			self.font=pygame.font.SysFont(None,60)
+			self.font=pygame.font.SysFont('FangSong',30)
 		self.color=(30,30,30)
 		self.bg_color=self.settings.bg_color
 		if level>=1:
