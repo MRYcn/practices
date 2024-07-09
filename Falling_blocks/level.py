@@ -1,6 +1,6 @@
 #coding=utf-8
 #author=MRY
-#releasedtime=
+#releasedtime=2024.7.9
 
 #assist for: block_game.py
 try:
@@ -19,12 +19,13 @@ class Level(Sprite):
 		if n!=0:
 			self.font=pygame.font.SysFont(None,48)
 			self.level_str=str(n)
-			self.level_img=self.font.render(self.level_str,True,self.color,self.bg_color)
+#			self.level_img=self.font.render(self.level_str,True,self.color,self.bg_color)
+			self.level_img=self.font.render(self.level_str,True,self.color)
 			self.rect=self.level_img.get_rect()
-			self.font_scale=24/60
+			self.font_scale=12/60
 			self.size=48
 		else:
-			font=pygame.font.SysFont(None,60)
+			font=pygame.font.SysFont('FangSong',60)
 			level_str='级别'
 			self.level_img=font.render(level_str,True,(30,30,30),self.bg_color)
 			self.rect=self.level_img.get_rect()
