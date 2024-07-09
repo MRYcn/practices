@@ -1,6 +1,6 @@
 #coding=utf-8
 #author=MRY
-#releasedtime=
+#releasedtime=2024.7.9
 
 #assist for: block_game.py
 try:
@@ -15,7 +15,7 @@ class Scoreboard:
 		self.rects={'miss':[],'current':[],'highest':[]}
 		self.color=(30,30,30)
 		self.red=(230,0,0)
-		self.font=pygame.font.SysFont(None,20)
+		self.font=pygame.font.SysFont(None,35)
 	def _update_sb(self,B_game):
 		self.miss_y=50
 		self.limit_life=B_game.stats.lives_limit
@@ -54,7 +54,5 @@ class Scoreboard:
 	def blitme(self,B_game):
 		self._update_sb(B_game)
 		for sect in self.rects.values():
-			print(sect)
 			for rect in sect:
-				print(rect)
 				self.screen.blit(rect[0],rect[1])
