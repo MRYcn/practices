@@ -1,6 +1,6 @@
 #coding=utf-8
 #author=MRY
-#releasedtime=
+#releasedtime=2024.7.9
 
 #assists for: block_game.py
 
@@ -9,8 +9,8 @@ class Settings:
 		self.screen_size=(1200,700)
 		self.bg_color=(230,230,230)
 		self.level_color=(30,30,30)
-		self.block_rect=[(100,100),(100,50),(75,25),(50,25),(20,20)]
-		self.speeds=[10,15,20,25,30]
+		self.block_rect=[(125,100),(100,80),(90,70),(70,60),(40,20)]
+		self.speeds=[10,12,14,16,20]
 		self.lives_limits=[3,3,3,2,2]
 		self.waits=[(10,30),(5,15),(5,10),(3,10),(2,7)]
 		self.sing_scores=[10,15,20,25,30]
